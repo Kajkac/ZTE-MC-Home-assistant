@@ -67,8 +67,8 @@ sensor:
           value_template: '{{ ( 50 - states("sensor.zte_lte_monthly_transfer_usage") |float) | round(2) }}'
           unit_of_measurement: "GB"
         zte_lte_sms:
-          friendly_name: "Last SMS"
+          friendly_name: "Last SMS ID"
           value_template: "{{ state_attr('sensor.ztesms', 'id') }}"
         zte_lte_sms_content:
-          friendly_name: "Last SMS"
+          friendly_name: "Last SMS content"
           value_template: "{{ state_attr('sensor.ztesms', 'content') }}"
