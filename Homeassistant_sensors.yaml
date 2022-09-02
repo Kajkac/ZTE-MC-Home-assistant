@@ -28,16 +28,6 @@ sensor:
       value_template: "{{ value_json.network_type }}"
     - platform: template
       sensors:
-        1kat_temperature_attribute:
-          friendly_name: "1 Kat podešena temperatura"
-          unit_of_measurement: "°C"
-          device_class: temperature
-          value_template: "{{ state_attr('climate.haier_ac_1_kat', 'temperature') }}"
-        prizemlje_temperature_attribute:
-          friendly_name: "Prizemlje podešena temperatura"
-          unit_of_measurement: "°C"
-          device_class: temperature
-          value_template: "{{ state_attr('climate.haier_ac_prizemlje', 'temperature') }}"
         zte_network_type:
           friendly_name: "Network type"
           value_template: "{{ state_attr('sensor.zte', 'network_type') }}"
