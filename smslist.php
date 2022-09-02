@@ -38,8 +38,6 @@ $login_url = "http://$ip/goform/goform_set_cmd_process";
 $cmd_url = "http://$ip/goform/goform_get_cmd_process?isTest=false&cmd=network_type%2Crssi%2Crscp%2Crmcc%2Crmnc%2Cenodeb_id%2Clte_rsrq%2Clte_rsrp%2CZ5g_snr%2CZ5g_rsrp%2CZCELLINFO_band%2CZ5g_dlEarfcn%2Clte_ca_pcell_arfcn%2Clte_ca_pcell_band%2Clte_ca_scell_band%2Clte_ca_pcell_bandwidth%2Clte_ca_scell_info%2Clte_ca_scell_bandwidth%2Cwan_lte_ca%2Clte_pci%2CZ5g_CELL_ID%2CZ5g_SINR%2Ccell_id%2Cwan_lte_ca%2Clte_ca_pcell_band%2Clte_ca_pcell_bandwidth%2Clte_ca_scell_band%2Clte_ca_scell_bandwidth%2Clte_ca_pcell_arfcn%2Clte_ca_scell_arfcn%2Clte_multi_ca_scell_info%2Cwan_active_band%2Cnr5g_pci%2Cnr5g_action_band%2Cnr5g_cell_id%2Clte_snr%2Cecio%2Cwan_active_channel%2Cnr5g_action_channel%2Cngbr_cell_info%2Cmonthly_tx_bytes%2Cmonthly_rx_bytes&multi_data=1";
 $cmd_url_sms_old = "http://$ip/goform/goform_get_cmd_process?isTest=false&cmd=sms_data_total&page=0&data_per_page=500&mem_store=1&tags=10&order_by=order+by+id+desc";
 $cmd_url_sms = "http://$ip/goform/goform_get_cmd_process?cmd=sms_data_total&page=0&data_per_page=5000&mem_store=1&tags=10&order_by=order+by+id+desc";
-$cmd_url_send_sms = "http://$ip/goform/goform_get_cmd_process?isTest=false&goformId=SEND_SMS&notCallback=true&Number=+385989072702&sms_time=22%3B08%3B20%3B13%3B03%3B35%3B%2B2&MessageBody=00420052005A0049004E0041&ID=-1&encode_type=GSM7_default&AD=6cafdd1e2f9042c1244a6939848c1c6c";
-
 // LD
 $c_ld = curl_init($ld_url);
 curl_setopt($c_ld, CURLOPT_RETURNTRANSFER, true);
