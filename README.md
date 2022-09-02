@@ -1,4 +1,4 @@
-# ZTE-MC801A
+# ZTE-MC801A Home assistant addon
 ZTE MC801A Home assistant addon
 
 ![alt tag](https://github.com/Kajkac/ZTE-MC801A/blob/main/HA%20sensors.png?raw=true)
