@@ -21,3 +21,10 @@ After all that create sensors in Home assistant Homeassistant_sensors.yaml
 I put that to configuration.yaml
 
 
+Thanks to : 
+
+https://habr.com/en/post/277637/
+and
+http://www.bez-kabli.pl/viewtopic.php?f=12&t=62164
+
+for providing me a solution to autheticating and parsing data from ZTE router
