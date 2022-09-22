@@ -20,8 +20,47 @@ After all that create sensors in Home assistant Homeassistant_sensors.yaml
 
 I put that to configuration.yaml
 
+SMS SENDER : 
 
-Thanks to : 
+Home assistant part : 
+
+configuration.yaml:
+
+switch:
+  - platform: command_line
+    switches:
+      zte_sms:
+        friendly_name: ZTE SMS Sender
+        command_on: "/usr/local/bin/python /config/python_scripts/zte_sms.py"
+        value_template: >
+          {{value_json.config.on}}
+        icon_template: >
+          {% if value_json.config.on == true %} mdi:message-alert
+          {% else %} mdi:message-text-lock
+          {% endif %}
+
+zte_sms.py
+
+Edit lines u need for sending sms :
+
+phoneNumber = 'PHONENUMBER' # enter phone number here
+message = 'MESSAGE' # enter your message here
+zteInstance = zteRouter("192.168.0.1", "PASSWORD") # enter your router IP nad password here
+
+
+Special thanks to:
+
+https://github.com/gediz/Superbox-Helper
+
+https://github.com/paddy-314/zteRouterReboot/blob/1e3977979ae2dfb6bb05dc28fb9cda233174f437/README.md
+
+paulo-correia/ZTE_API_and_Hack - for list of Requests and PHP Class
+
+Mohammad Aghazadeh - for MD5 hash and UTF8 Encoding
+
+Behzad Ebrahimi - for encode unicode string in "UCS2" format
+
+gediz/trivial-tools-n-scripts/blob/superbox-hacks - for AD calculating algorithm
 
 https://habr.com/en/post/277637/
 and
