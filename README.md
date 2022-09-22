@@ -22,6 +22,12 @@ I put that to configuration.yaml
 
 SMS SENDER : 
 
+Switch for send
+![alt tag](https://github.com/Kajkac/ZTE-MC801A/blob/main/sms1.png?raw=true)
+
+Log:
+![alt tag](https://github.com/Kajkac/ZTE-MC801A/blob/main/sms2.png?raw=true)
+
 Home assistant part : 
 
 configuration.yaml:
