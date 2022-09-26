@@ -58,7 +58,10 @@ message = 'MESSAGE' # enter your message here
 zteInstance = zteRouter("192.168.0.1", "PASSWORD") # enter your router IP nad password here
 
 
-**FURTHER INFO : When i will have time i will switch all to python and try to pack it like Hassio addon or integration, but for now this is functioning for me, anyone wanna contribute u can use this code and expand the funcionalities, like i use lot of code from guys bellow to achieve any functionalites so big thanks to them to share code.**
+**FURTHER INFO : When i will have time i will switch all to python and try to pack it like Hassio addon or integration, but for now this is functioning for me, anyone wanna contribute u can use this code and expand the funcionalities, like i use lot of code from guys bellow to achieve any functionalites so big thanks to them to share code.
+
+And also i will try to pull all the parameter out of onfiguration files so that all stuff will be at one place
+**
 
 
 **Special thanks to:**
