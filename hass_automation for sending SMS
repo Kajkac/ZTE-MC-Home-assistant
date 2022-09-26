@@ -1,0 +1,16 @@
+alias: TMobile SMS Sender
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - sensor.zte_lte_sms_content
+condition:
+  - condition: template
+    value_template: >-
+      {% if state_attr('sensor.ztesms', 'content') == "ENTER YOUR TRIGGER SMS" %} true {%- else -%} false {%- endif %}
+action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.zte_sms
+mode: single
