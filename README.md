@@ -1,5 +1,5 @@
 # ZTE-MC801A Home assistant addon
-ZTE MC801A Home assistant addon
+**ZTE MC801A Home assistant addon**
 
 ![alt tag](https://github.com/Kajkac/ZTE-MC801A/blob/main/HA%20sensors.png?raw=true)
 
@@ -20,11 +20,11 @@ After all that create sensors in Home assistant Homeassistant_sensors.yaml
 
 I put that to configuration.yaml
 
-UPDATE: for Apache part u also need to set correct rights to share/htdocsfolder : 
+**UPDATE: for Apache part u also need to set correct rights to share/htdocsfolder : **
 
 chmod 777 on that folders
 
-SMS SENDER : (for anyone ho has like me need to send sms-s after u spend your data plan, or u just need sms :)
+**SMS SENDER : (for anyone ho has like me need to send sms-s after u spend your data plan, or u just need sms :)**
 
 Switch for send
 ![alt tag](https://github.com/Kajkac/ZTE-MC801A/blob/main/sms1.png?raw=true)
@@ -58,10 +58,10 @@ message = 'MESSAGE' # enter your message here
 zteInstance = zteRouter("192.168.0.1", "PASSWORD") # enter your router IP nad password here
 
 
-FURTHER INFO : When i will have time i will switch all to python and try to pack it like Hassio addon or integration, but for now this is functioning for me, anyone wanna contribute u can use this code and expand the funcionalities, like i use lot of code from guys bellow to achieve any functionalites so big thanks to them to share code.
+**FURTHER INFO : When i will have time i will switch all to python and try to pack it like Hassio addon or integration, but for now this is functioning for me, anyone wanna contribute u can use this code and expand the funcionalities, like i use lot of code from guys bellow to achieve any functionalites so big thanks to them to share code.**
 
 
-Special thanks to:
+**Special thanks to:**
 
 https://github.com/gediz/Superbox-Helper
 
