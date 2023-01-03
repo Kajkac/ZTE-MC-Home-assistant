@@ -5,60 +5,39 @@
 
 U can add home assistant sensors and SMS parsing from Zte MC801A router
 
-U need to put PHP files to some apache server : i use home assistant repo : https://github.com/faserf/hassio-addons
-and add Apache2 to HA server
+U need to create folder inside Home Assistant named : python_scripts,sensors,switch
 
-After that u need to set section in both files (smslist and ztestatus) :
+After that u need to set configuration.yaml with : 
 
-$ip = "IP"; // zte ip address
+sensor: !include_dir_merge_list sensors/
+switch: !include_dir_merge_list switch/
 
-$password = strtoupper(hash('sha256', "XXXXXX")); // plain text password
+in file zte_tool.py u need to change ip and password and put your own values: 
 
-also set proper rights for this section in smslist.php: \\\PATH so that home assistant can access to this directory
+zteInstance = zteRouter("IP OF ROUTER", "PASSWORD")
 
-After all that create sensors in Home assistant Homeassistant_sensors.yaml
-
-I put that to configuration.yaml
-
-**UPDATE: for Apache part u also need to set correct rights to share/htdocsfolder : **
-
-chmod 777 on that folders
+After all that reboot HA and all sensors  in Home assistant will be created
 
 **SMS SENDER : (for anyone ho has like me need to send sms-s after u spend your data plan, or u just need sms :)**
 
-Switch for send
-![alt tag](https://github.com/Kajkac/ZTE-MC801A/blob/main/sms1.png?raw=true)
-
-Log:
-![alt tag](https://github.com/Kajkac/ZTE-MC801A/blob/main/sms2.png?raw=true)
-
-Home assistant part : 
-
-configuration.yaml:
-
-switch:
-  - platform: command_line
-    switches:
-      zte_sms:
-        friendly_name: ZTE SMS Sender
-        command_on: "/usr/local/bin/python /config/python_scripts/zte_sms.py"
-        value_template: >
-          {{value_json.config.on}}
-        icon_template: >
-          {% if value_json.config.on == true %} mdi:message-alert
-          {% else %} mdi:message-text-lock
-          {% endif %}
-
-zte_sms.py
-
-Edit lines u need for sending sms :
+Edit lines in zte_tool.py need for sending sms :
 
 phoneNumber = 'PHONENUMBER' # enter phone number here
 message = 'MESSAGE' # enter your message here
 zteInstance = zteRouter("192.168.0.1", "PASSWORD") # enter your router IP nad password here
 
+Switch for send
+![alt tag]()
 
-**FURTHER INFO : When i will have time i will switch all to python and try to pack it like Hassio addon or integration, but for now this is functioning for me, anyone wanna contribute u can use this code and expand the funcionalities, like i use lot of code from guys bellow to achieve any functionalites so big thanks to them to share code.**
+Log:
+![alt tag]()
+
+Home assistant part : 
+
+Look in switches configuration...
+
+
+**FURTHER INFO : I switch all to python and next step is to try to pack it like Hassio addon or integration, but for now this is functioning for me, anyone wanna contribute u can use this code and expand the funcionalities, like i use lot of code from guys bellow to achieve any functionalites so big thanks to them to share code.**
 
 **And also i will try to pull all the parameter out of onfiguration files so that all stuff will be at one place.**
 
