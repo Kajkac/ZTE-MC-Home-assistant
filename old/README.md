@@ -1,7 +1,7 @@
 # ZTE-MC801A Home assistant addon
 **ZTE MC801A Home assistant addon**
 
-![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/main/old/zte%20dashboard.png?raw=true?)
+![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/master/old/zte%20dashboard.png?raw=true?)
 
 U can add home assistant sensors and SMS parsing from Zte MC801A router
 
@@ -27,10 +27,10 @@ chmod 777 on that folders
 **SMS SENDER : (for anyone ho has like me need to send sms-s after u spend your data plan, or u just need sms :)**
 
 Switch for send
-![alt tag](https://github.com/Kajkac/ZTE-MC801A/blob/main/old/sms1.png?raw=true)
+![alt tag](https://github.com/Kajkac/ZTE-MC801A/blob/master/old/sms1.png?raw=true)
 
 Log:
-![alt tag](https://github.com/Kajkac/ZTE-MC801A/blob/main/old/sms2.png?raw=true)
+![alt tag](https://github.com/Kajkac/ZTE-MC801A/blob/master/old/sms2.png?raw=true)
 
 Home assistant part : 
 
