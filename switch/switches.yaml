@@ -1,0 +1,30 @@
+#switch:
+- platform: command_line
+  switches:
+    zte_sms_py:
+      friendly_name: ZTE SMS Sender PY
+      command_on: "/usr/local/bin/python /config/python_scripts/zte_tool.py 2"
+      value_template: >
+        {{value_json.config.on}}
+      icon_template: >
+        {% if value_json.config.on == true %} mdi:message-alert
+        {% else %} mdi:message-text-lock
+        {% endif %}
+    zte_reboot_py:
+      friendly_name: ZTE Reboot PY
+      command_on: "/usr/local/bin/python /config/python_scripts/zte_tool.py 4"
+      value_template: >
+        {{value_json.config.on}}
+      icon_template: >
+        {% if value_json.config.on == true %} mdi:message-alert
+        {% else %} mdi:power
+        {% endif %}
+    zte_delete_sms_py:
+      friendly_name: ZTE Delete all sms-s
+      command_on: "/usr/local/bin/python /config/python_scripts/zte_tool.py 5"
+      value_template: >
+        {{value_json.config.on}}
+      icon_template: >
+        {% if value_json.config.on == true %} mdi:message-alert
+        {% else %} mdi:phone
+        {% endif %}

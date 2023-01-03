@@ -1,0 +1,128 @@
+#sensor:
+- platform: template
+  scan_interval: 900
+  sensors:
+    glances:
+      friendly_name: "ZTE SMS Data checker"
+      value_template: >-
+        {% if state_attr('sensor.zte_py_sms_info', 'content') == "Za nastavak surfanja po maksimalnoj dostupnoj brzini posaljite rijec BRZINA na broj 13909. Vas Hrvatski Telekom" %}
+          "Data Plan Expired"
+        {% else %}
+          "Data Plan Active"
+        {% endif %}
+
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+    - type: memory_use
+    - type: memory_free
+    - type: memory_use_percent
+    - type: processor_use
+    - type: load_15m
+    - type: network_in
+      arg: eth0
+    - type: network_out
+      arg: eth0
+    - type: throughput_network_in
+      arg: eth0
+    - type: throughput_network_out
+      arg: eth0
+
+- platform: command_line
+  name: Raspberry PI CPU Temp
+  command: "cat /sys/class/thermal/thermal_zone0/temp"
+  unit_of_measurement: "°C"
+  value_template: "{{ value | multiply(0.001) | round(2) }}"
+- platform: command_line
+  name: Raspberry PI PMIC Temp
+  command: |
+    sh -c "/opt/vc/bin/vcgencmd measure_temp pmic | sed -E -e 's/^temp=(.*).C/\1/g'"
+  unit_of_measurement: "°C"
+- platform: command_line
+  name: Raspberry PI Firmware
+  command: |
+    sh -c 'ts=$(/opt/vc/bin/vcgencmd bootloader_version | sed -E -n -e "s/timestamp (.*)/\1/p") && date -u -d @$ts -Iminutes'
+
+- platform: command_line
+  name: Raspberry PI Firmware
+  command: |
+    sh -c 'ts=$(/opt/vc/bin/vcgencmd bootloader_version | sed -E -n -e "s/timestamp (.*)/\1/p") && date -u -d @$ts -Iminutes'
+
+- platform: template
+  sensors:
+    zte_network_type:
+      friendly_name: "Network type"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'network_type') }}"
+    zte_router_version:
+      friendly_name: "Router Firmware version"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'wa_inner_version') }}"
+    zte_wan_ipaddr:
+      friendly_name: "WAN IP address"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'wan_ipaddr') }}"
+    zte_lte_rsrq:
+      friendly_name: "RSRQ"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'lte_rsrq') }}"
+      unit_of_measurement: "dBm"
+    zte_lte_rsrp:
+      friendly_name: "RSRP"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'lte_rsrp') }}"
+      unit_of_measurement: "dBm"
+    zte_cell_id:
+      friendly_name: "Cell ID"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'cell_id') |int(base=16) }}"
+    zte_lte_snr:
+      friendly_name: "LTE SNR"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'lte_snr') }}"
+      unit_of_measurement: "dB"
+    zte_wan_active_channel:
+      friendly_name: "WAN active channel"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'wan_active_channel') }}"
+    zte_wan_active_band:
+      friendly_name: "WAN main active band"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'wan_active_band') }}"
+    zte_lte_multi_ca_scell_info:
+      friendly_name: "Multi cell info"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'lte_multi_ca_scell_info') }}"
+    zte_lte_monthly_transfer_usage:
+      friendly_name: "Monthly usage"
+      value_template: '{{ ((state_attr("sensor.zte_router_info", "monthly_tx_bytes") |float + state_attr("sensor.zte_router_info", "monthly_rx_bytes") |float ) / 1024 / 1024 / 1024) | round(2) }}'
+      unit_of_measurement: "GB"
+    zte_lte_monthly_transfer_left:
+      friendly_name: "Data left"
+      value_template: '{{ ( 50 - states("sensor.zte_lte_monthly_transfer_usage") |float) | round(2) }}'
+      unit_of_measurement: "GB"
+
+- platform: command_line
+  name: "ZTE Last SMS values"
+  command: "/usr/local/bin/python /config/python_scripts/zte_tool.py 1"
+  json_attributes:
+    - id
+    - content
+    - number
+  value_template: "{{ value_json.id }}"
+  scan_interval: 900
+
+- platform: command_line
+  name: "ZTE SMS Memory left"
+  command: "/usr/local/bin/python /config/python_scripts/zte_tool.py 6"
+  #  value_template: "{{ value_json.messages }}"
+  scan_interval: 800
+
+- platform: command_line
+  name: "ZTE Router info"
+  command: "/usr/local/bin/python /config/python_scripts/zte_tool.py 3"
+  json_attributes:
+    - wa_inner_version
+    - network_type
+    - lte_rsrq
+    - lte_rsrp
+    - cell_id
+    - lte_snr
+    - wan_active_channel
+    - wan_active_band
+    - wan_ipaddr
+    - lte_multi_ca_scell_info
+    - monthly_tx_bytes
+    - monthly_rx_bytes
+  value_template: "{{ value_json.wa_inner_version }}"
+  scan_interval: 1000
