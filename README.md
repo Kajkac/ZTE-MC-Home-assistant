@@ -26,15 +26,34 @@ phoneNumber = 'PHONENUMBER' # enter phone number here
 message = 'MESSAGE' # enter your message here
 zteInstance = zteRouter("192.168.0.1", "PASSWORD") # enter your router IP nad password here
 
-Switch for send
-![alt tag]()
-
-Log:
-![alt tag]()
+Switch for send (u can create that from switches)
+![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/main/ztemc801av2SMS.png?raw=true)
 
 Home assistant part : 
 
 Look in switches configuration...
+
+Automation for send SMS: 
+
+alias: T-Mobile Sender
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - sensor.glances
+    from: "\"Data Plan Active\""
+    to: "\"Data Plan Expired\""
+condition:
+  - condition: state
+    entity_id: sensor.glances
+    state: "\"Data Plan Expired\""
+action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id:
+        - switch.zte_sms_py
+mode: single
 
 
 **FURTHER INFO : I switch all to python and next step is to try to pack it like Hassio addon or integration, but for now this is functioning for me, anyone wanna contribute u can use this code and expand the funcionalities, like i use lot of code from guys bellow to achieve any functionalites so big thanks to them to share code.**
