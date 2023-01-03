@@ -35,6 +35,7 @@ Look in switches configuration...
 
 Automation for send SMS: 
 
+```
 alias: T-Mobile Sender
 description: ""
 trigger:
@@ -54,7 +55,7 @@ action:
       entity_id:
         - switch.zte_sms_py
 mode: single
-
+```
 
 **FURTHER INFO : I switch all to python and next step is to try to pack it like Hassio addon or integration, but for now this is functioning for me, anyone wanna contribute u can use this code and expand the funcionalities, like i use lot of code from guys bellow to achieve any functionalites so big thanks to them to share code.**
 
