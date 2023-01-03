@@ -1,0 +1,6 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+sensor: !include_dir_merge_list sensors/
+switch: !include_dir_merge_list switch/
+
