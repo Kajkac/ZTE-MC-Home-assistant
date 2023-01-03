@@ -1,7 +1,7 @@
 # ZTE-MC801A Home assistant addon
 **ZTE MC801A Home assistant addon**
 
-![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/main/zte%20dashboard.png?raw=true?)
+![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/main/ztemc801av2.png?raw=true?)
 
 U can add home assistant sensors and SMS parsing from Zte MC801A router
 
