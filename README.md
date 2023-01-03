@@ -1,7 +1,7 @@
 # ZTE-MC801A Home assistant addon
 **ZTE MC801A Home assistant addon**
 
-![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/main/ztemc801av2.png?raw=true?)
+![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/master/ztemc801av2.png?raw=true?)
 
 U can add home assistant sensors and SMS parsing from Zte MC801A router
 
@@ -27,7 +27,7 @@ message = 'MESSAGE' # enter your message here
 zteInstance = zteRouter("192.168.0.1", "PASSWORD") # enter your router IP nad password here
 
 Switch for send (u can create that from switches)
-![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/main/ztemc801av2SMS.png?raw=true)
+![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/master/ztemc801av2SMS.png?raw=true)
 
 Home assistant part : 
 
