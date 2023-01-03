@@ -123,8 +123,10 @@ class zteRouter:
         newjs = self.js.replace("evalString", '"' + a + u + '"')
         AD = js2py.eval_js(newjs)
         header = {"Referer": self.referer, "Cookie": cookie}
-        payload = "isTest=false&goformId=REBOOT_DEVICE&AD=" + AD
-        r = requests.post(self.referer + "goform/goform_get_cmd_process", headers=header, data=payload)
+        payload = f'isTest=false&goformId=REBOOT_DEVICE&AD=' + AD
+        print(payload)
+        r = requests.post(self.referer + "goform/goform_set_cmd_process", headers=header, data=payload)
+        return r.status_code
 
     def deletesms(self, msg_id):
         cookie = self.getCookie(password = self.password, LD = self.get_LD())
@@ -179,7 +181,7 @@ message = 'BRZINA' # enter your message here
 messageEncoded = gsm_encode(message)
 outputmessage = messageEncoded.decode()
 
-zteInstance = zteRouter("IP OF ROUTER", "PASSWORD")
+zteInstance = zteRouter("192.168.10.1", "InPrivate@123!")
 ha_select = int(sys.argv[1])
 
 
