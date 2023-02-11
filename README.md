@@ -3,37 +3,52 @@
 
 ![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/master/ztemc801av2.png?raw=true?)
 
-U can add home assistant sensors and SMS parsing from Zte MC801A router
+You can add home assistant sensors and SMS parsing from Zte MC801A router
 
-U need to create folder inside Home Assistant named : python_scripts,sensors,switch
+## How to use
 
-After that u need to set configuration.yaml with : 
+You need to create folder inside Home Assistant (under ```/root/config/``` ) named : 
 
+```
+ python_scripts
+ sensors
+ switch
+```
+
+After that you need to add to ```configuration.yaml``` : 
+
+```
 sensor: !include_dir_merge_list sensors/
 switch: !include_dir_merge_list switch/
+```
 
-in file zte_tool.py u need to change ip and password and put your own values: 
+in file ```zte_tool.py``` you need to replace ip and password with your own values: 
 
+```
 zteInstance = zteRouter("IP OF ROUTER", "PASSWORD")
+```
 
 After all that reboot HA and all sensors  in Home assistant will be created
 
-**SMS SENDER : (for anyone ho has like me need to send sms-s after u spend your data plan, or u just need sms :)**
+**SMS SENDER : (for anyone who has like me need to send sms-s after you spend your data plan, or you just need sms :)**
 
-Edit lines in zte_tool.py need for sending sms :
+Edit lines in ```zte_tool.py``` need for sending sms :
 
+```
 phoneNumber = 'PHONENUMBER' # enter phone number here
 message = 'MESSAGE' # enter your message here
 zteInstance = zteRouter("192.168.0.1", "PASSWORD") # enter your router IP nad password here
+```
 
-Switch for send (u can create that from switches)
+Switch for send (you can create that from switches)
+
 ![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/master/ztemc801av2SMS.png?raw=true)
 
 Home assistant part : 
 
 Look in switches configuration...
 
-Automation for send SMS: 
+Automation for send SMS (you can put to ```automations.yaml```): 
 
 ```
 alias: T-Mobile Sender
@@ -64,6 +79,7 @@ mode: single
 
 **Special thanks to:**
 
+```
 https://github.com/gediz/Superbox-Helper
 
 https://github.com/paddy-314/zteRouterReboot/blob/1e3977979ae2dfb6bb05dc28fb9cda233174f437/README.md
@@ -81,3 +97,4 @@ and
 http://www.bez-kabli.pl/viewtopic.php?f=12&t=62164
 
 for providing me a solution to autheticating and parsing data from ZTE router
+```
