@@ -59,6 +59,20 @@
     zte_wan_ipaddr:
       friendly_name: "WAN IP address"
       value_template: "{{ state_attr('sensor.zte_router_info', 'wan_ipaddr') }}"
+    zte_5g_sinr:
+      friendly_name: "5G SINR"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'Z5g_SINR') }}"
+      unit_of_measurement: "dB"
+    zte_5g_rsrp:
+      friendly_name: "5G RSRP"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'Z5g_rsrp') }}"
+      unit_of_measurement: "dBm"
+    zte_5g_cell_id:
+      friendly_name: "5G Band"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'nr5g_action_band') }}"
+    zte_5g_snr:
+      friendly_name: "5G Channel id"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'nr5g_action_channel') }}"   
     zte_lte_rsrq:
       friendly_name: "RSRQ"
       value_template: "{{ state_attr('sensor.zte_router_info', 'lte_rsrq') }}"
@@ -114,6 +128,10 @@
   json_attributes:
     - wa_inner_version
     - network_type
+    - Z5g_SINR
+    - Z5g_rsrp
+    - nr5g_action_band
+    - nr5g_action_channel
     - lte_rsrq
     - lte_rsrp
     - cell_id
