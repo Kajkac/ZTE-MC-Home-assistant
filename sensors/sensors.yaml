@@ -62,7 +62,7 @@
     zte_5g_sinr:
       friendly_name: "5G SINR"
       value_template: "{{ state_attr('sensor.zte_router_info', 'Z5g_SINR') }}"
-      unit_of_measurement: "dBm"
+      unit_of_measurement: "dB"
     zte_5g_rsrp:
       friendly_name: "5G RSRP"
       value_template: "{{ state_attr('sensor.zte_router_info', 'Z5g_rsrp') }}"
