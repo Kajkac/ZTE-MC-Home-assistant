@@ -5,7 +5,7 @@
     glances:
       friendly_name: "ZTE SMS Data checker"
       value_template: >-
-        {% if state_attr('sensor.zte_py_sms_info', 'content') == "Za nastavak surfanja po maksimalnoj dostupnoj brzini posaljite rijec BRZINA na broj 13909. Vas Hrvatski Telekom" %}
+        {% if state_attr('sensor.zte_last_sms_values', 'content') == "Za nastavak surfanja po maksimalnoj dostupnoj brzini posaljite rijec BRZINA na broj 13909. Vas Hrvatski Telekom" %}
           "Data Plan Expired"
         {% else %}
           "Data Plan Active"
