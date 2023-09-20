@@ -15,6 +15,8 @@ gsm = ("@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞ\x1bÆæßÉ !\"#¤%&
 ext = ("````````````````````^```````````````````{}`````\\````````````[~]`"
        "|````````````````````````````````````€``````````````````````````")
 
+s = requests.Session()
+
 def get_sms_time():
     return datetime.now().strftime("%y;%m;%d;%H;%M;%S;+2")
 
@@ -48,13 +50,13 @@ class zteRouter:
     def getVersion(self):
         header = {"Referer": self.referer}
         payload = "isTest=false&cmd=wa_inner_version"
-        r = requests.get(self.referer + f"goform/goform_get_cmd_process?{payload}", headers=header , data=payload)
+        r = s.get(self.referer + f"goform/goform_get_cmd_process?{payload}", headers=header , data=payload)
         return r.json()["wa_inner_version"]
 
     def get_LD(self):
         header = {"Referer": self.referer}
         payload = "isTest=false&cmd=LD"
-        r = requests.get(self.referer + f"goform/goform_get_cmd_process?{payload}", headers=header, data=payload)
+        r = s.get(self.referer + f"goform/goform_get_cmd_process?{payload}", headers=header, data=payload)
         return r.json()["LD"].upper()
 
     def getCookie(self, password, LD):
@@ -62,13 +64,13 @@ class zteRouter:
         hashPassword = self.hash(password).upper()
         ztePass = self.hash(hashPassword+LD).upper()
         payload = "isTest=false&goformId=LOGIN&password=" + ztePass
-        r = requests.post(self.referer + "goform/goform_set_cmd_process", headers=header, data=payload)
+        r = s.post(self.referer + "goform/goform_set_cmd_process", headers=header, data=payload)
         return "stok=" + r.cookies["stok"].strip('\"')
 
     def get_RD(self):
         header = {"Referer": self.referer}
         payload = "isTest=false&cmd=RD"
-        r = requests.post(self.referer + "goform/goform_get_cmd_process", headers=header, data=payload)
+        r = s.post(self.referer + "goform/goform_get_cmd_process", headers=header, data=payload)
         return r.json()["RD"]
 
     def sendsms(self):
@@ -81,7 +83,7 @@ class zteRouter:
         header = {"Referer": self.referer, "Cookie": cookie}
         payload = f'isTest=false&goformId=SEND_SMS&notCallback=true&Number={phoneNumberEncoded}&sms_time={getsmstimeEncoded}&MessageBody={outputmessage}&ID=-1&encode_type=GSM7_default&AD=' + AD
         print(payload)
-        r = requests.post(self.referer + "goform/goform_set_cmd_process", headers=header, data=payload)
+        r = s.post(self.referer + "goform/goform_set_cmd_process", headers=header, data=payload)
         return r.status_code
 
     def zteinfo(self):
@@ -96,7 +98,7 @@ class zteRouter:
             "Cookie": f"{cookie_pass}"
                  }
 
-        response = requests.get(cmd_url, headers=headers)
+        response = s.get(cmd_url, headers=headers)
         print(response.text)
 
     def ztesmsinfo(self):
@@ -111,7 +113,7 @@ class zteRouter:
             "Cookie": f"{cookie_pass}"
                  }
 
-        response = requests.get(cmd_url, headers=headers)
+        response = s.get(cmd_url, headers=headers)
         return response.text
 
 
@@ -125,7 +127,7 @@ class zteRouter:
         header = {"Referer": self.referer, "Cookie": cookie}
         payload = f'isTest=false&goformId=REBOOT_DEVICE&AD=' + AD
         print(payload)
-        r = requests.post(self.referer + "goform/goform_set_cmd_process", headers=header, data=payload)
+        r = s.post(self.referer + "goform/goform_set_cmd_process", headers=header, data=payload)
         return r.status_code
 
     def deletesms(self, msg_id):
@@ -138,14 +140,14 @@ class zteRouter:
         header = {"Referer": self.referer, "Cookie": cookie}
         payload = f'isTest=false&goformId=DELETE_SMS&msg_id={msg_id}&AD=' + AD
         print(payload)
-        r = requests.post(self.referer + "goform/goform_set_cmd_process", headers=header, data=payload)
+        r = s.post(self.referer + "goform/goform_set_cmd_process", headers=header, data=payload)
         return r.status_code
 
     def parsesms(self):
         cookie = self.getCookie(password = self.password, LD = self.get_LD())
         header = {"Referer": self.referer, "Cookie": cookie}
         payload = f'cmd=sms_data_total&page=0&data_per_page=5000&mem_store=1&tags=10&order_by=order+by+id+desc'# + AD
-        r = requests.post(self.referer + "goform/goform_get_cmd_process", headers=header, data=payload)
+        r = s.post(self.referer + "goform/goform_get_cmd_process", headers=header, data=payload)
         response_text = r.text
 
         # Find and replace the string
