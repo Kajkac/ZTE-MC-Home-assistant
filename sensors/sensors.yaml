@@ -110,6 +110,10 @@
           {{ ( 50 - states("sensor.zte_lte_monthly_transfer_usage") | float %50 ) | round(2) }}
         {% endif %}
       unit_of_measurement: "GB"
+    zte_connection_uptime:
+      friendly_name: "Connection uptime"
+      value_template: '{{ ((state_attr("sensor.zte_router_info", "realtime_time") |float) / 3600 ) | round(2) }}'
+      unit_of_measurement: "hour(s)"
 
 - platform: command_line
   name: "ZTE Last SMS values"
@@ -147,5 +151,6 @@
     - lte_multi_ca_scell_info
     - monthly_tx_bytes
     - monthly_rx_bytes
+    - realtime_time
   value_template: "{{ value_json.wa_inner_version }}"
   scan_interval: 1000
