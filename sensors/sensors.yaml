@@ -103,7 +103,12 @@
       unit_of_measurement: "GB"
     zte_lte_monthly_transfer_left:
       friendly_name: "Data left"
-      value_template: '{{ ( 50 - states("sensor.zte_lte_monthly_transfer_usage") |float) | round(2) }}'
+      value_template: >-
+        {% if states("sensor.zte_lte_monthly_transfer_usage") | float < 200 %}
+          {{ ( 200 - states("sensor.zte_lte_monthly_transfer_usage") | float ) | round(2) }}
+        {% else %}
+          {{ ( 50 - states("sensor.zte_lte_monthly_transfer_usage") | float %50 ) | round(2) }}
+        {% endif %}
       unit_of_measurement: "GB"
 
 - platform: command_line
