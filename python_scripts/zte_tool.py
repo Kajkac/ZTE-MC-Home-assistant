@@ -250,7 +250,7 @@ message = 'BRZINA' # enter your message here
 messageEncoded = gsm_encode(message)
 outputmessage = messageEncoded.decode()
 
-zteInstance = zteRouter("192.168.100.1", "dbe1413aaf")
+zteInstance = zteRouter("192.168.1.1", "password")
 ha_select = int(sys.argv[1])
 
 
