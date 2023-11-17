@@ -34,6 +34,10 @@ jobs:
     - name: Zip files
       run: zip -r ZTE_MC_HA_v${{ env.VERSION }}.zip .
 
+    - name: Get last commit message
+      id: last_commit
+      run: echo "::set-output name=message::$(git log -1 --pretty=format:'%s')"
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -44,7 +48,7 @@ jobs:
         release_name: ZTE_MC_HA_v${{ env.VERSION }}
         body: |
           Changes in this release:
-          - $(git log -1 --pretty=format:"- %s")
+          - ${{ steps.last_commit.outputs.message }}
 
     - name: Upload Release Asset
       id: upload-release-asset
