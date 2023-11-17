@@ -3,5 +3,5 @@ default_config:
 
 sensor: !include_dir_merge_list sensors/
 switch: !include_dir_merge_list switch/
-
+command_line: !include_dir_merge_list command_line/
 

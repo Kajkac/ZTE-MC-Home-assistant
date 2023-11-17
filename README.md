@@ -1,12 +1,26 @@
-# ZTE-MC801A Home assistant addon
-**ZTE MC801A Home assistant addon**
+# ZTE Home assistant addon
+**ZTE Home assistant addon**
 
-**UPDATE : modified configuration to support new versions of Home assistant**
+Supported models : 
+
+MC801A
+MC889
+MC888
 
 
 ![alt tag](https://github.com/Kajkac/ZTE-MC801A-Home-assistant/blob/master/ztemc801av2.png?raw=true?)
 
 You can add home assistant sensors and SMS parsing from Zte MC801A router
+
+
+**UPDATE : modified configuration to support new versions of Home assistant**
+
+1. Add command line merge directory : command_line: !include_dir_merge_list command_line/ to configuration.yaml
+2. Adjust sensors.py
+3. Add command_line directory from repo
+4. Comment out ZTE switches
+5. Restart and test
+
 
 ## How to use
 
@@ -23,6 +37,7 @@ After that you need to add to ```configuration.yaml``` :
 ```
 sensor: !include_dir_merge_list sensors/
 switch: !include_dir_merge_list switch/
+command_line: !include_dir_merge_list command_line/ to configuration.yaml
 ```
 
 in file ```zte_tool.py``` you need to replace ip and password with your own values: 
@@ -51,29 +66,8 @@ Home assistant part :
 
 Look in switches configuration...
 
-Automation for send SMS (you can put to ```automations.yaml```): 
+Automation for send SMS (you can put to ```automations.yaml```): are in repo as yaml with clean and reboot automations
 
-```
-alias: T-Mobile Sender
-description: ""
-trigger:
-  - platform: state
-    entity_id:
-      - sensor.glances
-    from: "\"Data Plan Active\""
-    to: "\"Data Plan Expired\""
-condition:
-  - condition: state
-    entity_id: sensor.glances
-    state: "\"Data Plan Expired\""
-action:
-  - service: switch.turn_on
-    data: {}
-    target:
-      entity_id:
-        - switch.zte_sms_py
-mode: single
-```
 
 **UPDATE : modified configuration to support new versions of Home assistant**
 
@@ -91,6 +85,8 @@ From 2023.8.0 Command line is moving so you need to adjust the configuration lik
 **Special thanks to:**
 
 ```
+https://github.com/ngarafol - for providig fixes along the way to this repo
+
 https://github.com/gediz/Superbox-Helper
 
 https://github.com/paddy-314/zteRouterReboot/blob/1e3977979ae2dfb6bb05dc28fb9cda233174f437/README.md
