@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - '*'
-      
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,7 +35,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: v${{ steps.increment_version.outputs.VERSION }}
-        release_name: v${{ steps.increment_version.outputs.VERSION }} Release
+        release_name: ZTE_MC_HA_v${{ steps.increment_version.outputs.VERSION }}
         body: |
           Changes in this release:
           - Describe your changes here
