@@ -15,18 +15,24 @@ jobs:
 
     - name: Read current version
       id: read_version
-      run: echo "VERSION=$(cat VERSION)" && echo "VERSION=${{ env.VERSION }}" >> $GITHUB_ENV
-      shell: bash
+      run: echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
 
     - name: Increment version
       id: increment_version
-      run: echo "VERSION=$(( $(echo $VERSION | cut -d. -f1) + 1 )).0.0" >> $GITHUB_ENV
+      run: |
+        IFS='.' read -r major minor patch <<< "${{ env.VERSION }}"
+        NEW_VERSION="${major}.${minor}.$((${patch} + 1))"
+        echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+        echo "${NEW_VERSION}" > VERSION
+
+    - name: Display updated version
+      run: echo "VERSION=${{ env.VERSION }}"
 
     - name: Update version file
-      run: echo "VERSION=${{ steps.increment_version.outputs.VERSION }}" > VERSION
+      run: echo "VERSION=${{ env.VERSION }}" > $GITHUB_WORKSPACE/VERSION
 
     - name: Zip files
-      run: zip -r ZTE_MC_HA_v${{ steps.increment_version.outputs.VERSION }}.zip .
+      run: zip -r ZTE_MC_HA_v${{ env.VERSION }}.zip .
 
     - name: Create Release
       id: create_release
@@ -34,11 +40,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${{ steps.increment_version.outputs.VERSION }}
-        release_name: v${{ steps.increment_version.outputs.VERSION }} Release
+        tag_name: v${{ env.VERSION }}
+        release_name: ZTE_MC_HA_v${{ env.VERSION }}
         body: |
           Changes in this release:
-          - Describe your changes here
+          - $(git log -1 --pretty=format:"- %s")
 
     - name: Upload Release Asset
       id: upload-release-asset
@@ -47,6 +53,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./ZTE_MC_HA_v${{ steps.increment_version.outputs.VERSION }}.zip
-        asset_name: ZTE_MC_HA_v${{ steps.increment_version.outputs.VERSION }}.zip
+        asset_path: ./ZTE_MC_HA_v${{ env.VERSION }}.zip
+        asset_name: ZTE_MC_HA_v${{ env.VERSION }}.zip
         asset_content_type: application/zip
