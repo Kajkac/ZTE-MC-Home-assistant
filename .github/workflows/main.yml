@@ -21,7 +21,9 @@ jobs:
     - name: Read current version
       id: read_version
       run: |
-        echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
+        VERSION=$(cat VERSION)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
 
     - name: Bump version
       id: bump_version
@@ -39,7 +41,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: v${VERSION}
-        release_name: Release v${VERSION}
+        release_name: ZTE_MC_HA_v${VERSION}
         body: |
           Changes in this release:
           - Describe your changes here
