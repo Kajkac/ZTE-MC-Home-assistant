@@ -21,9 +21,7 @@ jobs:
     - name: Read current version
       id: read_version
       run: |
-        VERSION=$(cat VERSION)
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
-
+        echo "VERSION=$(< VERSION)" >> $GITHUB_ENV
 
     - name: Bump version
       id: bump_version
