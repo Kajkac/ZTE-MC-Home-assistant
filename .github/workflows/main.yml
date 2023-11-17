@@ -28,6 +28,9 @@ jobs:
     - name: Display updated version
       run: echo "VERSION=${{ env.VERSION }}"
 
+    - name: Update version file
+      run: echo "VERSION=${{ env.VERSION }}" > VERSION
+
     - name: Zip files
       run: zip -r ZTE_MC_HA_v${{ env.VERSION }}.zip .
 
