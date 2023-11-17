@@ -44,7 +44,7 @@ jobs:
         release_name: ZTE_MC_HA_v${{ env.VERSION }}
         body: |
           Changes in this release:
-          - Describe your changes here
+          - $(git log -1 --pretty=format:"- %s")
 
     - name: Upload Release Asset
       id: upload-release-asset
