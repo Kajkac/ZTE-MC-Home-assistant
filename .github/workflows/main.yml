@@ -1,0 +1,49 @@
+name: Zip and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Read current version
+      id: read_version
+      run: echo "::set-output name=version::$(cat VERSION)"
+
+    - name: Bump version
+      id: bump_version
+      run: echo "::set-output name=version::$(./bump-version.sh ${{ steps.read_version.outputs.version }})"  # Adjust the script name and path
+
+    - name: Zip files
+      run: |
+        zip -r ZTE_MC_HA_v${{ steps.bump_version.outputs.version }}.zip .
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ steps.bump_version.outputs.version }}
+        release_name: Release v${{ steps.bump_version.outputs.version }}
+        body: |
+          Changes in this release:
+          - Describe your changes here
+
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./ZTE_MC_HA_v${{ steps.bump_version.outputs.version }}.zip
+        asset_name: ZTE_MC_HA_v${{ steps.bump_version.outputs.version }}.zip
+        asset_content_type: application/zip
