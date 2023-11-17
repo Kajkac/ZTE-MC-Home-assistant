@@ -1,0 +1,18 @@
+alias: T-Mobile Sender
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - sensor.glances
+    from: "\"Data Plan Active\""
+    to: "\"Data Plan Expired\""
+condition:
+  - condition: state
+    entity_id: sensor.glances
+    state: "\"Data Plan Expired\""
+action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.zte_sms_sender_py
+mode: single

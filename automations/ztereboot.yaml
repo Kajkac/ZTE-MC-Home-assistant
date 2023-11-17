@@ -1,0 +1,12 @@
+alias: ZTE Rebbot 7hrs
+description: ""
+trigger:
+  - platform: time
+    at: "07:00:00"
+condition: []
+action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.zte_reboot_py
+mode: single
