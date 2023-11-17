@@ -25,6 +25,9 @@ jobs:
     - name: Update version file
       run: echo "VERSION=${{ steps.increment_version.outputs.VERSION }}" > VERSION
 
+    - name: Display updated version
+      run: echo "VERSION=${{ steps.increment_version.outputs.VERSION }}"
+
     - name: Zip files
       run: zip -r ZTE_MC_HA_v${{ steps.increment_version.outputs.VERSION }}.zip .
 
