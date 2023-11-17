@@ -15,21 +15,19 @@ jobs:
 
     - name: Read current version
       id: read_version
-      run: |
-        echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
-        echo "VERSION=${{ env.VERSION }}" >> $GITHUB_ENV
+      run: echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
       shell: bash
 
     - name: Increment version
       id: increment_version
       run: |
-        echo "VERSION=$(( $(echo $VERSION | cut -d. -f1) + 1 )).0.0" >> $GITHUB_ENV
+        echo "VERSION=$(( $(echo ${{ env.VERSION }} | cut -d. -f1) + 1 )).0.0" >> $GITHUB_ENV
       shell: bash
+      env:
+        VERSION: ${{ env.VERSION }}
 
     - name: Update version file
-      run: |
-        echo "VERSION=${{ steps.increment_version.outputs.VERSION }}" > VERSION
-      shell: bash
+      run: echo "VERSION=${{ steps.increment_version.outputs.VERSION }}" > VERSION
 
     - name: Display updated version
       run: echo "VERSION=${{ steps.increment_version.outputs.VERSION }}"
