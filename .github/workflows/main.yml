@@ -3,7 +3,7 @@ name: Increment Version and Release
 on:
   push:
     branches:
-      - main
+      - '*'
 
 jobs:
   build:
