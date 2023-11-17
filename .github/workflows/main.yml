@@ -1,36 +1,31 @@
-name: Zip and Release
+name: Increment Version and Release
 
 on:
   push:
     branches:
-      - '*'
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Use Node.js 16
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-
     - name: Checkout repository
       uses: actions/checkout@v2
 
     - name: Read current version
       id: read_version
-      run: |
-        echo "VERSION=$(< VERSION)" >> $GITHUB_ENV
+      run: echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
 
-    - name: Bump version
-      id: bump_version
-      run: |
-        echo "VERSION=$(./bump-version.sh $VERSION)" >> $GITHUB_ENV
+    - name: Increment version
+      id: increment_version
+      run: echo "VERSION=$(( $(echo $VERSION | cut -d. -f1) + 1 )).0.0" >> $GITHUB_ENV
+
+    - name: Update version file
+      run: echo "VERSION=${{ steps.increment_version.outputs.VERSION }}" > VERSION
 
     - name: Zip files
-      run: |
-        zip -r ZTE_MC_HA_v${VERSION}.zip .
+      run: zip -r ZTE_MC_HA_v${{ steps.increment_version.outputs.VERSION }}.zip .
 
     - name: Create Release
       id: create_release
@@ -38,8 +33,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${VERSION}
-        release_name: ZTE_MC_HA_v${VERSION}
+        tag_name: v${{ steps.increment_version.outputs.VERSION }}
+        release_name: Release v${{ steps.increment_version.outputs.VERSION }}
         body: |
           Changes in this release:
           - Describe your changes here
@@ -51,6 +46,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./ZTE_MC_HA_v${VERSION}.zip
-        asset_name: ZTE_MC_HA_v${VERSION}.zip
+        asset_path: ./ZTE_MC_HA_v${{ steps.increment_version.outputs.VERSION }}.zip
+        asset_name: ZTE_MC_HA_v${{ steps.increment_version.outputs.VERSION }}.zip
         asset_content_type: application/zip
