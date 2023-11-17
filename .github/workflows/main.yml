@@ -32,7 +32,7 @@ jobs:
       run: echo "VERSION=${{ env.VERSION }}" > $GITHUB_WORKSPACE/VERSION
 
     - name: Zip files
-      run: zip -r ZTE_MC_HA_v${{ env.VERSION }}.zip .
+      run: zip -r ZTE_MC_HA_v${{ env.VERSION }}.zip . -x '*.git*' -x '*.vscode*' -x '*.github*' -x '*.gitattributes' -x '*.gitignore' -x '*ZTE_MC_HA_v*.zip' -x '*.DS_Store' -x '*.editorconfig' -x '*.gitmodules' -x '*.travis.yml' -x '*CODEOWNERS' -x '*CONTRIBUTING.md' -x '*README.md' -x '*.mailmap' -x '*.yarn*' -x '*LICENSE' -x '*.eslint*' -x '*.md'
 
     - name: Get last commit message
       id: last_commit
