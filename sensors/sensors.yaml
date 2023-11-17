@@ -1,6 +1,6 @@
 #sensor:
 - platform: template
-  scan_interval: 900
+  scan_interval: 100
   sensors:
     glances:
       friendly_name: "ZTE SMS Data checker"
@@ -11,48 +11,15 @@
           "Data Plan Active"
         {% endif %}
 
-- platform: systemmonitor
-  resources:
-    - type: disk_use_percent
-    - type: memory_use
-    - type: memory_free
-    - type: memory_use_percent
-    - type: processor_use
-    - type: load_15m
-    - type: network_in
-      arg: eth0
-    - type: network_out
-      arg: eth0
-    - type: throughput_network_in
-      arg: eth0
-    - type: throughput_network_out
-      arg: eth0
-
-- platform: command_line
-  name: Raspberry PI CPU Temp
-  command: "cat /sys/class/thermal/thermal_zone0/temp"
-  unit_of_measurement: "°C"
-  value_template: "{{ value | multiply(0.001) | round(2) }}"
-- platform: command_line
-  name: Raspberry PI PMIC Temp
-  command: |
-    sh -c "/opt/vc/bin/vcgencmd measure_temp pmic | sed -E -e 's/^temp=(.*).C/\1/g'"
-  unit_of_measurement: "°C"
-- platform: command_line
-  name: Raspberry PI Firmware
-  command: |
-    sh -c 'ts=$(/opt/vc/bin/vcgencmd bootloader_version | sed -E -n -e "s/timestamp (.*)/\1/p") && date -u -d @$ts -Iminutes'
-
-- platform: command_line
-  name: Raspberry PI Firmware
-  command: |
-    sh -c 'ts=$(/opt/vc/bin/vcgencmd bootloader_version | sed -E -n -e "s/timestamp (.*)/\1/p") && date -u -d @$ts -Iminutes'
 
 - platform: template
   sensors:
     zte_network_type:
       friendly_name: "Network type"
       value_template: "{{ state_attr('sensor.zte_router_info', 'network_type') }}"
+    zte_signal_bar:
+      friendly_name: "Signal Bar"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'signalbar') }}"
     zte_router_version:
       friendly_name: "Router Firmware version"
       value_template: "{{ state_attr('sensor.zte_router_info', 'wa_inner_version') }}"
@@ -72,7 +39,7 @@
       value_template: "{{ state_attr('sensor.zte_router_info', 'nr5g_action_band') }}"
     zte_5g_snr:
       friendly_name: "5G Channel id"
-      value_template: "{{ state_attr('sensor.zte_router_info', 'nr5g_action_channel') }}"   
+      value_template: "{{ state_attr('sensor.zte_router_info', 'nr5g_action_channel') }}"
     zte_lte_rsrq:
       friendly_name: "RSRQ"
       value_template: "{{ state_attr('sensor.zte_router_info', 'lte_rsrq') }}"
@@ -97,6 +64,15 @@
     zte_lte_multi_ca_scell_info:
       friendly_name: "Multi cell info"
       value_template: "{{ state_attr('sensor.zte_router_info', 'lte_multi_ca_scell_info') }}"
+
+    zte_lte_ca_pcell_band:
+      friendly_name: "PA cell band"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'lte_ca_pcell_band') }}"
+    zte_lte_ca_pcell_bandwidth:
+      friendly_name: "PA cell bandwidth"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'lte_ca_pcell_bandwidth') }}"
+      unit_of_measurement: "Mhz"
+
     zte_lte_monthly_transfer_usage:
       friendly_name: "Monthly usage"
       value_template: '{{ ((state_attr("sensor.zte_router_info", "monthly_tx_bytes") |float + state_attr("sensor.zte_router_info", "monthly_rx_bytes") |float ) / 1024 / 1024 / 1024) | round(2) }}'
@@ -114,43 +90,14 @@
       friendly_name: "Connection uptime"
       value_template: '{{ ((state_attr("sensor.zte_router_info", "realtime_time") |float) / 3600 ) | round(2) }}'
       unit_of_measurement: "hour(s)"
-
-- platform: command_line
-  name: "ZTE Last SMS values"
-  command: "/usr/local/bin/python /config/python_scripts/zte_tool.py 1"
-  json_attributes:
-    - id
-    - content
-    - number
-  value_template: "{{ value_json.id }}"
-  scan_interval: 900
-
-- platform: command_line
-  name: "ZTE SMS Memory left"
-  command: "/usr/local/bin/python /config/python_scripts/zte_tool.py 6"
-  #  value_template: "{{ value_json.messages }}"
-  scan_interval: 800
-
-- platform: command_line
-  name: "ZTE Router info"
-  command: "/usr/local/bin/python /config/python_scripts/zte_tool.py 3"
-  json_attributes:
-    - wa_inner_version
-    - network_type
-    - Z5g_SINR
-    - Z5g_rsrp
-    - nr5g_action_band
-    - nr5g_action_channel
-    - lte_rsrq
-    - lte_rsrp
-    - cell_id
-    - lte_snr
-    - wan_active_channel
-    - wan_active_band
-    - wan_ipaddr
-    - lte_multi_ca_scell_info
-    - monthly_tx_bytes
-    - monthly_rx_bytes
-    - realtime_time
-  value_template: "{{ value_json.wa_inner_version }}"
-  scan_interval: 1000
+#test
+#    zte_realtime_download_speed:
+#      friendly_name: "Realtime download speed"
+#      unique_id: sensor.zte_realtime_download_speed
+#      value_template: '{{ ((state_attr("sensor.zte_router_info", "realtime_rx_thrpt") |float) / 1024 / 1024) | round(2) }}'
+#      unit_of_measurement: "MB/s"
+#    zte_realtime_upload_speed:
+#      friendly_name: "Realtime upload speed"
+#      unique_id: sensor.zte_realtime_upload_speed
+#      value_template: '{{ ((state_attr("sensor.zte_router_info", "realtime_tx_thrpt") |float) / 1024 / 1024) | round(2) }}'
+#      unit_of_measurement: "MB/s"

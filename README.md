@@ -72,6 +72,14 @@ action:
 mode: single
 ```
 
+**UPDATE : modified configuration to support new versions of Home assistant**
+
+From 2023.8.0 Command line is moving so you need to adjust the configuration like 
+
+
+
+
+
 **FURTHER INFO : I switch all to python and next step is to try to pack it like Hassio addon or integration, but for now this is functioning for me, anyone wanna contribute u can use this code and expand the funcionalities, like i use lot of code from guys bellow to achieve any functionalites so big thanks to them to share code.**
 
 **And also i will try to pull all the parameter out of onfiguration files so that all stuff will be at one place.**
