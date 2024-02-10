@@ -7,6 +7,8 @@
       value_template: >-
         {% if state_attr('sensor.zte_last_sms_values', 'content') == "Za nastavak surfanja po maksimalnoj dostupnoj brzini posaljite rijec BRZINA na broj 13909. Vas Hrvatski Telekom" %}
           "Data Plan Expired"
+        {% elif state_attr('sensor.zte_last_sms_values', 'content') == "Pogresna kljucna rijec." %}
+          "Data Plan Expired"
         {% else %}
           "Data Plan Active"
         {% endif %}
