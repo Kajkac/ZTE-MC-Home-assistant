@@ -294,6 +294,15 @@ elif ha_select == 6:
 elif ha_select == 7:
     time.sleep(3)
     result = zteInstance.zteinfo2()
+# debug - list all sms
+# in case one needs to debug outgoing or incoming sms, this will come in handy
+elif ha_select == 8:
+    time.sleep(2)
+    zteInstance.parsesms()
+    result = zteInstance.parsesms()
+    json_str = json.dumps(result)
+    test = json.loads(result)
+    print(test)
 
 else:
     print("ELSE")
