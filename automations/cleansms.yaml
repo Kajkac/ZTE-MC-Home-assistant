@@ -4,14 +4,14 @@ trigger:
   - platform: state
     entity_id:
       - sensor.zte_sms_memory_left
-    to: "\"You have 0 messages left of 100\""
+    to: "You have 0 messages left of 100"
 condition:
   - condition: state
     entity_id: sensor.zte_sms_memory_left
-    state: "\"You have 0 messages left of 100\""
+    state: "You have 0 messages left of 100"
 action:
   - service: switch.turn_on
     data: {}
     target:
-      entity_id: switch.zte_delete_sms_py
+      entity_id: switch.zte_delete_all_sms_s
 mode: single
