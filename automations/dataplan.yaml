@@ -1,18 +1,31 @@
+# Still testing this one, more conditions added. Delay added too.
+# Super important: Get last sms must be enabled, and set to lower value than this automation delay
+# I use interval of 20 for Get last sms sensor/switch!
+# Automation runs until one of conditions turns to true, in normal occassion, after 1-5 messages.
 alias: T-Mobile Sender
 description: ""
 trigger:
   - platform: state
     entity_id:
       - sensor.glances
-    from: "\"Data Plan Active\""
-    to: "\"Data Plan Expired\""
+    from: "Data Plan Active"
+    to: "Data Plan Expired"
 condition:
   - condition: state
     entity_id: sensor.glances
-    state: "\"Data Plan Expired\""
+    state: "Data Plan Expired"
 action:
-  - service: switch.turn_on
-    data: {}
-    target:
-      entity_id: switch.zte_sms_sender_py
+  - repeat:
+      sequence:
+        - service: switch.turn_on
+          data: {}
+          target:
+            entity_id: switch.zte_sms_sender_py
+        - delay: 35
+      until:
+      - condition: or
+        conditions:
+        - "{{ is_state_attr('sensor.zte_last_sms_values', 'content', 'Postovani, nastavljate surfati po maksimalnoj dostupnoj brzini. Vas Hrvatski Telekom') }}"
+        - "{{ is_state_attr('sensor.zte_last_sms_values', 'content', 'Postovani, imate maksimalnu dostupnu brzinu u neogranicenom podatkovnom prometu. Vas HT') }}"
+        - "{{ repeat.index >= 50 }}"
 mode: single
