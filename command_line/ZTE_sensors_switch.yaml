@@ -39,6 +39,8 @@
       - monthly_tx_bytes
       - monthly_rx_bytes
       - realtime_time
+      - pm_sensor_mdm
+      - pm_modem_5g
     #       - realtime_rx_thrpt
     #       - realtime_tx_thrpt
 
