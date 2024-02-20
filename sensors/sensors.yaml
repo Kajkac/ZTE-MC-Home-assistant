@@ -16,6 +16,14 @@
 
 - platform: template
   sensors:
+    zte_4g_temp:
+      friendly_name: "4G Modem temperature"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'pm_sensor_mdm') }}"
+      unit_of_measurement: "°C"
+    zte_5g_temp:
+      friendly_name: "5G Modem temperature"
+      value_template: "{{ state_attr('sensor.zte_router_info', 'pm_modem_5g') }}"
+      unit_of_measurement: "°C"
     zte_network_type:
       friendly_name: "Network type"
       value_template: "{{ state_attr('sensor.zte_router_info', 'network_type') }}"
