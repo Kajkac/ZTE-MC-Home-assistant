@@ -1,6 +1,6 @@
 - sensor:
     name: "ZTE Last SMS values"
-    command: "/usr/local/bin/python /config/python_scripts/zte_tool.py 1"
+    command: "python /config/python_scripts/zte_tool.py 1"
     json_attributes:
       - id
       - content
@@ -10,14 +10,14 @@
 
 - sensor:
     name: "ZTE SMS Memory left"
-    command: "/usr/local/bin/python /config/python_scripts/zte_tool.py 6"
+    command: "python /config/python_scripts/zte_tool.py 6"
     #  value_template: "{{ value_json.messages }}"
     scan_interval: 800
 
 - sensor:
     name: "ZTE Router info"
     unique_id: sensor.zte_router_info
-    command: "/usr/local/bin/python /config/python_scripts/zte_tool.py 3"
+    command: "python /config/python_scripts/zte_tool.py 3"
     json_attributes:
       - wa_inner_version
       - network_type
@@ -51,7 +51,7 @@
     name: ZTE Last SMS Content CMD
     command_timeout: 30
     scan_interval: 3000000000 # Adjust this interval as needed
-    command: "/usr/local/bin/python /config/python_scripts/zte_tool.py 1"
+    command: "python /config/python_scripts/zte_tool.py 1"
     json_attributes:
       - id
       - content
@@ -60,21 +60,21 @@
 
 - switch:
     name: ZTE SMS Sender PY
-    command_on: "/usr/local/bin/python /config/python_scripts/zte_tool.py 2"
+    command_on: "python /config/python_scripts/zte_tool.py 2"
     value_template: >
       {{value_json.config.on}}
 - switch:
     name: ZTE Reboot PY
-    command_on: "/usr/local/bin/python /config/python_scripts/zte_tool.py 4"
+    command_on: "python /config/python_scripts/zte_tool.py 4"
     value_template: >
       {{value_json.config.on}}
 - switch:
     name: ZTE Delete all sms-s
-    command_on: "/usr/local/bin/python /config/python_scripts/zte_tool.py 5"
+    command_on: "python /config/python_scripts/zte_tool.py 5"
     value_template: >
       {{value_json.config.on}}
 - switch:
     name: ZTE get last sms-s
-    command_on: "/usr/local/bin/python /config/python_scripts/zte_tool.py 1"
+    command_on: "python /config/python_scripts/zte_tool.py 1"
     value_template: >
       {{value_json.config.off}}
