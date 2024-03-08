@@ -41,7 +41,7 @@ switch:
     switches:
       zte_sms:
         friendly_name: ZTE SMS Sender
-        command_on: "/usr/local/bin/python /config/python_scripts/zte_sms.py"
+        command_on: "python /config/python_scripts/zte_sms.py"
         value_template: >
           {{value_json.config.on}}
         icon_template: >

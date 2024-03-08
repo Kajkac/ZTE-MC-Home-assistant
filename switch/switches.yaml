@@ -6,7 +6,7 @@
 #   switches:
 #     zte_sms_py:
 #       friendly_name: ZTE SMS Sender PY
-#       command_on: "/usr/local/bin/python /config/python_scripts/zte_tool.py 2"
+#       command_on: "python /config/python_scripts/zte_tool.py 2"
 #       value_template: >
 #         {{value_json.config.on}}
 #       icon_template: >
@@ -15,7 +15,7 @@
 #         {% endif %}
 #     zte_reboot_py:
 #       friendly_name: ZTE Reboot PY
-#       command_on: "/usr/local/bin/python /config/python_scripts/zte_tool.py 4"
+#       command_on: "python /config/python_scripts/zte_tool.py 4"
 #       value_template: >
 #         {{value_json.config.on}}
 #       icon_template: >
@@ -24,7 +24,7 @@
 #         {% endif %}
 #     zte_delete_sms_py:
 #       friendly_name: ZTE Delete all sms-s
-#       command_on: "/usr/local/bin/python /config/python_scripts/zte_tool.py 5"
+#       command_on: "python /config/python_scripts/zte_tool.py 5"
 #       value_template: >
 #         {{value_json.config.on}}
 #       icon_template: >
