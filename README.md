@@ -1,3 +1,7 @@
+# This part will stop being developed i am swithing to Home assistant custom_integration so from now on i will be releasing on this repo : https://github.com/Kajkac/ZTE-MC-Home-assistant-repo 
+**Whoever wanna something to add or propose let me know and i will see if i can put that into integration**
+
+
 # ZTE Home assistant addon
 **ZTE Home assistant addon**
 
